@@ -21,7 +21,7 @@ def limpar_tela():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 def parar_exibir():
-    print('\nPressione esc para sair')
+    print('\nPressione \033[34mesc\033[m para sair')
     keyboard.wait('esc')
     limpar_tela()
 

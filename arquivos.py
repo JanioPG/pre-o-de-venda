@@ -24,37 +24,46 @@ def editar_arquivo_texto(list):
         
 
 def ler_arquivo(cod='', operação=False):
-    """
-    -> Faz a leitura do arquivo de texto e apresenta ao usuário os produtos
+    """-> Faz a leitura do arquivo de texto e apresenta ao usuário os produtos
+
+    Args:
+        cod (str, optional): Código do produto. Defaults to ''.
+
+    Returns:
+        str: Retorna dados do produto se este for encontrado, se não, retorna 'produto não encontrado'. Ou, ainda, informa erro na base de dados.
     """
     try:
         with open(name_file, 'r') as produtos:
-            line = produtos.readlines()
-            if len(line) == 0:
+            lines = produtos.readlines()
+            if len(lines) == 0:
                 return print('Nenhum produto foi cadastrado')
 
             if operação == True:
                 list = []
-                for i, item in enumerate(line):
+                for i, item in enumerate(lines):
                     item = item.replace('\n', '')
                     info = item.split(';')
                     if info[2] == cod:
-                        list.append(line[i])
+                        list.append(lines[i])
                 if len(list) == 0:
                     print('Produto não encontrado. Tente ver a lista completa')
                 else:
                     exibir_informação(list)
             else:
-                exibir_informação(line)
+                exibir_informação(lines)
     except (FileNotFoundError, IndexError):
         print('''\033[31mERROR:
         Possíveis causas e ações:
         Base de dados não existe.
         Verifique a integridade da base de dados, o arquivo pode ter sido alterado inadequadamente.\033[m''')
-    parar_exibir()
+    finally:
+        parar_exibir()
 
 
 def exibir_informação(list):
+    """
+    -> Exibe um ou mais produtos da lista
+    """
     print(f'\033[1;32m{"id":<4}{"Nome do Produto":<20}{"Cód.":<10}{"Lote":<10}{"Custo":<10}{"Margem de Lucro (%)":<25}{"Preço de venda":<12}{"Data da Consulta":>20} \033[m')
     linha()
     for item in list:
@@ -64,7 +73,7 @@ def exibir_informação(list):
         linha()
     
 
-def registrar_produtos():
+def registrar_produto():
     """
     -> Salva os dados do produto, incluindo seu preço de venda
     """
@@ -77,18 +86,3 @@ def registrar_produtos():
     preço = (dados[3] / (1 - (dados[4]/100))).__round__(2)
     dados.append(preço)
     editar_arquivo_texto(dados)
-
-''' dados = []
-    nome = str(input('Nome do produto: '))
-    cod = str(input('Código do produto: '))
-    lote = str(input('Lote: '))
-    custo = float(input('Custo do produto: R$'))
-    margem_lucro = float(input('Margem de lucro [%]: '))
-    preço = (custo / (1 - (margem_lucro/100))).__round__(2)
-    dados.append(nome)
-    dados.append(cod)
-    dados.append(lote)
-    dados.append(custo)
-    dados.append(margem_lucro)
-    dados.append(preço)
-    editar_arquivo_texto(dados)'''

@@ -1,29 +1,29 @@
-from interface import *
-from arquivos import *
+import interface
+import arquivos
 import os
 
-limpar_tela()
+interface.limpar_tela()
 
 while True:
-    opções = ['Preço de venda', 'Ver lista de produtos', 'Consultar único produto', 'Sair']
-    menu('Home', opções)
-    escolha = str(input('Opção: ')).strip()
-    os.system('cls' if os.name=='nt' else 'clear')
-    if escolha == '1':
-        registrar_produtos()
-    elif escolha == '2':
-        ler_arquivo()
-    elif escolha == '3':
+    options = ['Preço de venda', 'Ver lista de produtos', 'Consultar único produto', 'Sair']
+    interface.menu('Home', options)
+    choice = str(input('Opção: ')).strip()
+    interface.limpar_tela()
+    if choice == '1':
+        arquivos.registrar_produto()
+    elif choice == '2':
+        arquivos.ler_arquivo()
+    elif choice == '3':
         while True:
             codigo = str(input('Informe o código do produto: ')).strip()
-            limpar_tela()
+            interface.limpar_tela()
             if codigo == '':
                 print('\033[31mERROR: Nenhum código informado.\033[m')
             else:
                 break
-        ler_arquivo(codigo, operação=True)
-    elif escolha == '4':
+        arquivos.ler_arquivo(codigo, operação=True)
+    elif choice == '4':
         break
-    elif escolha not in '1234' or escolha == '':
+    elif choice not in ['1', '2', '3', '4'] or choice == '':
         print('\033[31mOpção inválida. Escolha um número inteiro válido.\033[m')
         continue
