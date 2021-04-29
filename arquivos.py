@@ -3,7 +3,7 @@ from data import data_da_consulta
 import datetime
 from interface import parar_exibir, limpar_tela, linha
 
-name_file = 'preços-produtos.txt'
+name_file = 'precos-produtos.txt'
 
 def editar_arquivo_texto(list):
     """
