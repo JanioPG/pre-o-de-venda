@@ -1,6 +1,5 @@
 import interface
 import arquivos
-import os
 
 interface.limpar_tela()
 
@@ -9,7 +8,10 @@ while True:
     interface.menu('Home', options)
     choice = str(input('Opção: ')).strip()
     interface.limpar_tela()
-    if choice == '1':
+    if choice not in ['1', '2', '3', '4'] or choice == '':
+        print('\033[31mOpção inválida. Escolha um número inteiro válido.\033[m')
+        continue
+    elif choice == '1':
         arquivos.registrar_produto()
     elif choice == '2':
         arquivos.ler_arquivo()
@@ -24,6 +26,3 @@ while True:
         arquivos.ler_arquivo(codigo, operação=True)
     elif choice == '4':
         break
-    elif choice not in ['1', '2', '3', '4'] or choice == '':
-        print('\033[31mOpção inválida. Escolha um número inteiro válido.\033[m')
-        continue
