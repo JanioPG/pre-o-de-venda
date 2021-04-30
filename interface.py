@@ -1,16 +1,16 @@
 import os
 import keyboard
 
-def header(text):
+def header(texto):
     print('\033[32m')
     print('=' * 50)
-    print(text.center(50))
+    print(texto.center(50))
     print('=' * 50)
     print('\033[m')
 
-def menu(text, list):
-    header(text)
-    for i, value in enumerate(list):
+def menu(texto, lista):
+    header(texto)
+    for i, value in enumerate(lista):
         print(f'[{i + 1}] {value}')
 
 def linha():

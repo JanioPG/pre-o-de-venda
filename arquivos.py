@@ -3,9 +3,9 @@ from data import data_da_consulta
 import datetime
 from interface import parar_exibir, limpar_tela, linha
 
-name_file = 'preços-produtos.txt'
+name_file = 'precos-produtos.txt'
 
-def editar_arquivo_texto(list):
+def editar_arquivo_texto(lista):
     """
     -> Insere os dados do produto no arquivo de texto
     Args:
@@ -15,12 +15,12 @@ def editar_arquivo_texto(list):
         produtos.seek(0)      # retorna o ponteiro de leitura do txt p/ o início
         num_id = len(produtos.readlines()) + 1
         produtos.write(str(num_id) + ';')
-        for item in (list):
+        for item in (lista):
             produtos.write(str(item) + ';')
         data_hora = data_da_consulta()
         produtos.write(data_hora + '\n')
         limpar_tela()
-    ler_arquivo(cod=list[1], operação=True)
+    ler_arquivo(cod=lista[1], operação=True)
         
 
 def ler_arquivo(cod='', operação=False):
@@ -39,16 +39,16 @@ def ler_arquivo(cod='', operação=False):
                 return print('Nenhum produto foi cadastrado')
 
             if operação == True:
-                list = []
+                lista = []
                 for i, item in enumerate(lines):
                     item = item.replace('\n', '')
                     info = item.split(';')
                     if info[2] == cod:
-                        list.append(lines[i])
-                if len(list) == 0:
+                        lista.append(lines[i])
+                if len(lista) == 0:
                     print('Produto não encontrado. Tente ver a lista completa')
                 else:
-                    exibir_informação(list)
+                    exibir_informação(lista)
             else:
                 exibir_informação(lines)
     except (FileNotFoundError, IndexError):
@@ -60,13 +60,13 @@ def ler_arquivo(cod='', operação=False):
         parar_exibir()
 
 
-def exibir_informação(list):
+def exibir_informação(lista):
     """
     -> Exibe um ou mais produtos da lista
     """
     print(f'\033[1;32m{"id":<4}{"Nome do Produto":<20}{"Cód.":<10}{"Lote":<10}{"Custo":<10}{"Margem de Lucro (%)":<25}{"Preço de venda":<12}{"Data da Consulta":>20} \033[m')
     linha()
-    for item in list:
+    for item in lista:
         item = item.replace('\n', '')
         info = item.split(';')
         print(f'{info[0]:<4}{info[1]:<20}{info[2]:<10}{info[3]:<10}R$ {info[4]:<10}{info[5]:^25}\033[1;31mR$ {info[6]:<12}\033[m{info[7]:<20}')
