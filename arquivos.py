@@ -1,9 +1,8 @@
-import os
 from data import data_da_consulta
-import datetime
 from interface import parar_exibir, limpar_tela, linha
 
 name_file = 'precos-produtos.txt'
+
 
 def editar_arquivo_texto(lista):
     """
@@ -12,7 +11,7 @@ def editar_arquivo_texto(lista):
         list: lista contendo informações do produto em seus elementos.
     """
     with open(name_file, 'at+') as produtos:
-        produtos.seek(0)      # retorna o ponteiro de leitura do txt p/ o início
+        produtos.seek(0)    # retorna o ponteiro de leitura do txt p/ o início
         num_id = len(produtos.readlines()) + 1
         produtos.write(str(num_id) + ';')
         for item in (lista):
@@ -21,7 +20,7 @@ def editar_arquivo_texto(lista):
         produtos.write(data_hora + '\n')
         limpar_tela()
     ler_arquivo(cod=lista[1], operação=True)
-        
+
 
 def ler_arquivo(cod='', operação=False):
     """-> Faz a leitura do arquivo de texto e apresenta ao usuário os produtos
@@ -71,7 +70,7 @@ def exibir_informação(lista):
         info = item.split(';')
         print(f'{info[0]:<4}{info[1]:<20}{info[2]:<10}{info[3]:<10}R$ {info[4]:<10}{info[5]:^25}\033[1;31mR$ {info[6]:<12}\033[m{info[7]:<20}')
         linha()
-    
+
 
 def registrar_produto():
     """
@@ -83,6 +82,6 @@ def registrar_produto():
     float(input('Custo do produto: R$')),
     float(input('Margem de lucro [%]: '))
     ]
-    preço = (dados[3] / (1 - (dados[4]/100))).__round__(2)
-    dados.append(preço)
+    preco = round((dados[3] / (1 - (dados[4]/100))), 2)
+    dados.append(preco)
     editar_arquivo_texto(dados)

@@ -6,7 +6,7 @@ def data_da_consulta():
     """
     Função para verificar a data e hora na máquina do usuário
     Returns:
-        str: Data e hora do usuário com referência fixada a São Paulo. 
+        str: Data e hora do usuário com referência fixada a São Paulo.
     """
     data_hora_atual = datetime.now()
     fuso_horário = timezone('America/Sao_Paulo')
@@ -17,5 +17,6 @@ def data_da_consulta():
 
 
 # Para ver lista de fusos horários
-'''for tz in all_timezones:
-    print(tz)'''
+if __name__ == '__main__':
+    for tz in all_timezones:
+        print(tz)
