@@ -1,2 +1,2 @@
-# Preço de venda
-Programa para cálculo do preço de venda usando margem de lucro
+# Sale Price
+Program to calculate the sale price using profit margin.

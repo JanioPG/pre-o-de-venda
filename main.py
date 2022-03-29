@@ -1,28 +1,41 @@
-import interface
-import arquivos
+from option import operation, request_from_user
+from interface import header, menu, clean_screen, display, stop_showing
 
-interface.limpar_tela()
-
+message = ""
 while True:
-    options = ['Preço de venda', 'Ver lista de produtos', 'Consultar único produto', 'Sair']
-    interface.menu('Home', options)
-    choice = str(input('Opção: ')).strip()
-    interface.limpar_tela()
-    if choice not in ['1', '2', '3', '4'] or choice == '':
-        print('\033[31mOpção inválida. Escolha um número inteiro válido.\033[m')
-        continue
-    elif choice == '1':
-        arquivos.registrar_produto()
-    elif choice == '2':
-        arquivos.ler_arquivo()
-    elif choice == '3':
-        while True:
-            codigo = str(input('Informe o código do produto: ')).strip()
-            interface.limpar_tela()
-            if codigo == '':
-                print('\033[31mERROR: Nenhum código informado.\033[m')
-            else:
-                break
-        arquivos.ler_arquivo(codigo, operação=True)
-    elif choice == '4':
-        break
+    clean_screen()
+    menu("SALE PRICE", ["Register product", "Consult all products", "Consult individual products", "Update a product registration", "Delete record", "Quit"], message)
+    op = request_from_user("\nOption: ")
+    
+    if op not in ['1', '2', '3', '4', '5', '6']:
+        message = "Invalid option"
+    else:
+        message = ""
+        if op == '6':
+            break
+        else:
+            clean_screen()
+            action = operation(op)
+            print(type(action))
+            match op:
+                case '1':
+                    header("Product registration")
+                    message = action
+                case '2':
+                    header("Product List")
+                    if type(action) != 'str': 
+                        display(action)
+                    else:
+                        print(action)
+                    stop_showing()
+                case '3':
+                    pass
+                case '4':
+                    pass
+                case '5':
+                    print(action)
+                    stop_showing()
+
+                case _:
+                    message = "ERROR: No corresponding action."
+            print(message)

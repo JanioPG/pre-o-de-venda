@@ -1,0 +1,16 @@
+CREATE TABLE ProductPrice.Products (
+	id INT UNSIGNED auto_increment NOT NULL,
+	code varchar(100) NOT NULL,
+	name varchar(250) NOT NULL,
+	batch VARCHAR(30) NOT NULL,
+	total_cost DECIMAL(6,2) NOT NULL,
+	profit_percentage FLOAT(6,2) NOT NULL,
+	sale_price DECIMAL(6,2) NOT NULL,
+	created_at DATETIME DEFAULT CURRENT_TIMESTAMP() NOT NULL,
+	updated_at DATETIME DEFAULT CURRENT_TIMESTAMP() on update CURRENT_TIMESTAMP() NOT NULL,
+	CONSTRAINT Products_PK PRIMARY KEY (id)
+)
+ENGINE=InnoDB
+DEFAULT CHARSET=utf8mb4
+COLLATE=utf8mb4_general_ci;
+
