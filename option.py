@@ -1,4 +1,3 @@
-from itertools import product
 from decouple import config
 from productsDB import ConnectDB
 import mariadb
@@ -17,13 +16,9 @@ def request_from_user(text:str):
             
 
 def get_user_data():
-    # code
     code = request_from_user('Code: ')
-    # name
     name = request_from_user('Name: ')
-    # batch
     batch = request_from_user('Batch: ')
-    # total_cost
     total_cost = request_from_user('Total cost: R$').replace(",", ".")
     # profit percentage
     profit = request_from_user('Profit percentage [%]:').replace(",", ".")
@@ -81,6 +76,9 @@ def update(cur, id):
         for key, value in {"code": code, "name": name, "batch": batch, "total_cost": total_cost, "profit_percentage": profit_percentage, "sale_price": sale_price}.items():
             if value != float(0) and value != '0':
                to_update[key] = value
+
+        if len(to_update) == 0:
+            return "Nothing to update."
         
         combination = []
         for k in to_update.keys():
@@ -90,10 +88,9 @@ def update(cur, id):
         # add ID to appear in tuple.
         to_update["id"] = id
         query_sql = f"UPDATE Products set {to_update_text} WHERE id=?"
-        print(tuple(to_update.values()))
         cur.execute(query_sql, tuple(to_update.values()))
         
-        return query_sql
+        return f"Registration successfully updated."
         
     except:
         return "Error: Failed to update."
@@ -144,7 +141,13 @@ def operation(option: str):
             elif option == '4':
                 # update
                 id = request_from_user('Product ID: ')
-                result = update(cur, id)                
+                check = checker(cur, id)
+                if check:
+                    result = update(cur, id)
+                    
+                else:
+                    result = f"Product with ID {id} is not in the records." 
+                                
             else:
                 # delete a product record
                 id = request_from_user('Product ID: ')

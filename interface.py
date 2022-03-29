@@ -1,6 +1,4 @@
 import os
-from venv import create
-
 
 def header(text):
     print('\033[32m')
@@ -18,14 +16,14 @@ def menu(text, list, message):
 
 
 def line():
-    print('\033[36m-\033[m' * 114)
+    print('\033[36m-\033[m' * 119)
 
 def display(list):
-    print(f"\033[1;34m{'ID':<5} {'Code':<7} {'Name':<15} {'Batch':<10} {'Total cost':<15} {'Profit':<7} {'Sale price':<7}   {'Created at':<15}   {'Updated at':<15}\033[m")
+    print(f"\033[1;34m{'ID':<5} {'Code':<7} {'Name':<15} {'Batch':<8} {'Total cost':<12} {'Profit':<9} {'Sale price':<17}   {'Created at':<17}   {'Updated at':<15}\033[m")
     line()
     for value in list:
         id, code, name, batch, total_cost, profit_percentage, sale_price, created_at, updated_at = value
-        print(f"{id:<5} {code:<7} {name:<15} {batch:<10} $ {str(total_cost):<10} {str(profit_percentage):>7} % $ {str(sale_price):<10} | {str(created_at):<15} | {str(updated_at):<15}")
+        print(f"{id:<5} {code:<7} {name:<15} {batch:<8} $ {str(round(total_cost, 2)):<10} {profit_percentage:.2f} {'%':<3} \033[32m$ {str(round(sale_price, 2)):<10}\033[m \033[36m|\033[m {str(created_at):<15} \033[36m|\033[m {str(updated_at):<15}")
         line()
 
 
@@ -39,7 +37,7 @@ def stop_showing():
     while True:
         resp = str(input('Option:  ')).strip()
         if resp != 'q' or len(resp) == 0:
-            return
+            continue
         else:
             break
     clean_screen()

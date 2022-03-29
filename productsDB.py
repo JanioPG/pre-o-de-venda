@@ -1,5 +1,5 @@
-from decouple import config
 import mariadb
+import sys
 
 class ConnectDB:
 
@@ -23,8 +23,12 @@ class ConnectDB:
             return conn
 
         except mariadb.Error as e:
-            print(f"Error connecting to MariaDB Platform: {e}")
-            #sys.exit(1)
+            print(f"""Error connecting to MariaDB Platform: {e}
+                    Possible Causes:
+                        - Inactive or non-existent database
+                        - Incorrect credentials
+                    """)
+            sys.exit(1)
         """
         finally:
             print("make_connection run.")

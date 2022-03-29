@@ -10,32 +10,34 @@ while True:
     if op not in ['1', '2', '3', '4', '5', '6']:
         message = "Invalid option"
     else:
+        clean_screen()
         message = ""
         if op == '6':
+            print("Program closed")
             break
+
         else:
-            clean_screen()
+            header_text = ["Product Registration", "Product List", "Product Data", "Registry Update", "Delete record"]
+            header(header_text[int(op) - 1])
             action = operation(op)
-            print(type(action))
             match op:
                 case '1':
-                    header("Product registration")
-                    message = action
+                    print(action)
+
                 case '2':
-                    header("Product List")
                     if type(action) != 'str': 
-                        display(action)
+                        display(operation(op))
                     else:
                         print(action)
-                    stop_showing()
                 case '3':
-                    pass
+                    if len(action) == 0:
+                        print("No matching products.")
+                    else:
+                        display(action)
                 case '4':
-                    pass
+                    print(action)
                 case '5':
                     print(action)
-                    stop_showing()
-
                 case _:
                     message = "ERROR: No corresponding action."
-            print(message)
+            stop_showing()
